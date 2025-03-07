@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import theme from './utils/themes'
+import { TimerStoreProvider } from '@/providers/timer'
 
 const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
@@ -27,7 +28,7 @@ export default function RootLayout({
         <AppRouterCacheProvider options={{ key: 'css' }}>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            {children}
+            <TimerStoreProvider>{children}</TimerStoreProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
