@@ -3,7 +3,6 @@ import { createStore } from 'zustand'
 export type TimerState = {
   endTime: Date | null
   remain: number
-  isActivated: boolean
   isPaused: boolean
 }
 
@@ -19,14 +18,12 @@ export type TimerStore = TimerState & TimerActions
 export const initTimerStore = (): TimerState => ({
   endTime: null,
   remain: 0,
-  isActivated: false,
   isPaused: false,
 })
 
 export const defaultInitState: TimerState = {
   endTime: null,
   remain: 0,
-  isActivated: false,
   isPaused: false,
 }
 
@@ -43,7 +40,6 @@ export const createTimerStore = (initState: TimerState = defaultInitState) => {
     start: () =>
       set(state => ({
         endTime: new Date(Date.now() + state.remain),
-        isActivated: true,
         isPaused: false,
       })),
     pause: () =>
