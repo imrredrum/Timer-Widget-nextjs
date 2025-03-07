@@ -2,8 +2,9 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter'
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 import { CssBaseline, ThemeProvider } from '@mui/material'
-import theme from './utils/themes'
 import { TimerStoreProvider } from '@/providers/timer'
+import theme from '@/libs/themes'
+import { StopwatchStoreProvider } from '@/providers/stopwatch'
 
 const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
@@ -28,7 +29,9 @@ export default function RootLayout({
         <AppRouterCacheProvider options={{ key: 'css' }}>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            <TimerStoreProvider>{children}</TimerStoreProvider>
+            <TimerStoreProvider>
+              <StopwatchStoreProvider>{children}</StopwatchStoreProvider>
+            </TimerStoreProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
