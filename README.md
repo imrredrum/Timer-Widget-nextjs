@@ -1,36 +1,102 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 簡易計時器/碼錶前端專案
 
-## Getting Started
+## 專案需求
 
-First, run the development server:
+1. 通用
+   1. [x] 透過 Tab 切換計時器與碼表
+   2. [x] 切換的行為不影響計時器/碼表的背景運作
+   3. [x] 利用 timestamp 計算實際經過時間，避免因瀏覽器凍結等原因導致 interval 失準
+   4. [x] 增添全螢幕功能
+2. 計時器
+   1. [x] 預設為 5 分鐘
+   2. [x] 時間顯示格式為 `{h}h {m}m {s}s`
+   3. [x] 點擊時間暫定倒數並可修改倒數時間
+   4. [x] 按下 Start 開始倒數
+   5. [x] 按下 Pause 暫停倒數，再次 Start 則恢復倒數
+   6. [x] 按下 Reset 還原回初始設定，如有修改過時間則還原回設定之時間
+3. 碼表
+   1. [x] 時間顯示格式為 `{h}h {m}m {s}s {sss/10}`
+   2. [x] 按下 Start 開始計時
+   3. [x] 按下 Pause 暫停計時，再次 Start 則恢復計時
+   4. [x] 按下 Reset 還原回初始設定，如有修改過時間則還原回設定之時間
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 環境設置
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 前置需求
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Node.js (建議版本 14 以上)
+- Docker (建議版本 20 以上)
+- Docker Compose (建議版本 1.27 以上)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 安裝步驟
 
-## Learn More
+1. 將專案複製到本地端：
 
-To learn more about Next.js, take a look at the following resources:
+   ```sh
+   git clone <專案網址>
+   cd <專案目錄>
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### 進行部署
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+##### 使用 Docker 部署
 
-## Deploy on Vercel
+1. 建立並啟動 Docker 容器：
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```sh
+   docker-compose up --build
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+##### 使用 npm 指令 (不使用容器)
+
+1. 安裝相依套件：
+
+   ```sh
+   npm install --legacy-peer-deps
+   ```
+
+2. 打包編譯伺服器程式碼：
+
+   ```sh
+   npm run build
+   ```
+
+3. 透過 nginx 等工具 serve ./out/ 即可
+
+#### 建立開發環境
+
+##### 使用 Docker 開發
+
+1. 建立並啟動 Docker 容器：
+
+   ```sh
+   docker-compose up --build
+   ```
+
+2. 進入 Docker 容器：
+
+   ```sh
+   docker-compose exec app sh
+   ```
+
+3. 在容器內執行應用服務：
+
+   ```sh
+   npm run dev
+   ```
+
+##### 本地開發環境
+
+1. 安裝相依套件：
+
+   ```sh
+   npm install
+   ```
+
+2. 啟動開發伺服器：
+
+   ```sh
+   npm run dev
+   ```
+
+3. 開啟瀏覽器並訪問 <http://localhost:3000> 查看應用服務。
