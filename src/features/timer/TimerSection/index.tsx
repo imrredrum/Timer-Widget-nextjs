@@ -1,9 +1,9 @@
 'use client'
 
 import { Button } from '@mui/material'
-import SectionLayout from '../SectionLayout'
-import { useTimerStore } from '@/providers/timer'
 import { useState } from 'react'
+import { useTimerStore } from '@/providers/timer'
+import SectionLayout from '@/components/SectionLayout'
 import TimerInput from '../TimerInput'
 import TimerDisplay from '../TimerDisplay'
 

@@ -1,3 +1,7 @@
+'use client'
+
+import { useFullscreen } from '@/providers/fullscreen'
+import { Fullscreen as FullscreenIcon } from '@mui/icons-material'
 import {
   Box,
   buttonClasses,
@@ -5,21 +9,32 @@ import {
   cardActionsClasses,
   CardContent,
   cardContentClasses,
+  IconButton,
+  Stack,
 } from '@mui/material'
-import React from 'react'
 
 const SectionLayout: React.FC<
-  React.PropsWithChildren<{ actions: React.ReactNode[] }>
+  React.PropsWithChildren<{
+    actions: React.ReactNode[]
+  }>
 > = ({ actions, children }) => {
+  const { isFullscreen, onToggle } = useFullscreen()
+
   return (
-    <Box
+    <Stack
+      alignItems='stretch'
       sx={{
+        flexGrow: 1,
         [`.${cardContentClasses.root}`]: {
+          flexGrow: 1,
           mt: '-1px',
           border: '1px solid',
           borderColor: 'divider',
           borderLeft: 'none',
           borderRight: 'none',
+          display: 'flex',
+          justifyContent: isFullscreen ? 'center' : 'flex-start',
+          alignItems: 'center',
         },
         [`.${cardActionsClasses.root}`]: {
           p: 2,
@@ -35,8 +50,14 @@ const SectionLayout: React.FC<
       }}
     >
       <CardContent>{children}</CardContent>
-      <CardActions>{actions}</CardActions>
-    </Box>
+      <CardActions>
+        {actions}
+        <Box flexGrow={1} />
+        <IconButton sx={{ p: 0.25 }}>
+          <FullscreenIcon onClick={onToggle} />
+        </IconButton>
+      </CardActions>
+    </Stack>
   )
 }
 

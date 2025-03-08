@@ -5,6 +5,7 @@ import { CssBaseline, ThemeProvider } from '@mui/material'
 import { TimerStoreProvider } from '@/providers/timer'
 import theme from '@/libs/themes'
 import { StopwatchStoreProvider } from '@/providers/stopwatch'
+import { FullscreenProvider } from '@/providers/fullscreen'
 
 const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
@@ -30,7 +31,9 @@ export default function RootLayout({
           <ThemeProvider theme={theme}>
             <CssBaseline />
             <TimerStoreProvider>
-              <StopwatchStoreProvider>{children}</StopwatchStoreProvider>
+              <StopwatchStoreProvider>
+                <FullscreenProvider>{children}</FullscreenProvider>
+              </StopwatchStoreProvider>
             </TimerStoreProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>

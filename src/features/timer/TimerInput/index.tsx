@@ -1,6 +1,7 @@
 'use client'
 
 import millisecondsToTimeObject from '@/libs/utils/millisecondsToTime'
+import { useFullscreen } from '@/providers/fullscreen'
 import { useTimerStore } from '@/providers/timer'
 import { TextField } from '@mui/material'
 import { useEffect, useRef, useState } from 'react'
@@ -29,6 +30,7 @@ function formatTime(value: string): string {
 const TimerInput: React.FC<{ onComplete: (newValue?: number) => void }> = ({
   onComplete,
 }) => {
+  const { isFullscreen } = useFullscreen()
   const { endTime, remain: time } = useTimerStore(state => state)
   const [timeString, setTimeString] = useState('00:00:00')
   const isChanged = useRef(false)
@@ -75,7 +77,9 @@ const TimerInput: React.FC<{ onComplete: (newValue?: number) => void }> = ({
       onBlur={handleBlur}
       onKeyDown={handleKeyDown}
       slotProps={{
-        input: { sx: { fontSize: '3rem', pb: '1px' } },
+        input: {
+          sx: { fontSize: isFullscreen ? '6.25rem' : '3rem', pb: '1px' },
+        },
         htmlInput: {
           inputMode: 'numeric',
           pattern: '[0-9]*',
@@ -83,7 +87,7 @@ const TimerInput: React.FC<{ onComplete: (newValue?: number) => void }> = ({
             px: 1,
             py: 0,
             lineHeight: 1.5,
-            width: '11.5rem',
+            width: isFullscreen ? '24.125rem' : '11.5rem',
             height: 'unset',
           },
         },
